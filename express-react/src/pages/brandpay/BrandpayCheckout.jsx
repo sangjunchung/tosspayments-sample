@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 // TODO: server.js 의 secretKey 또한 결제위젯 연동 키가 아닌 API 개별 연동 키의 시크릿 키로 변경해야 합니다.
 // TODO: 구매자의 고유 아이디를 불러와서 customerKey로 설정하세요. 이메일・전화번호와 같이 유추가 가능한 값은 안전하지 않습니다.
 // @docs https://docs.tosspayments.com/sdk/v2/js#토스페이먼츠-초기화
-const clientKey = "test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq";
+const clientKey = "test_ck_26DlbXAaV06qgGNqL1qK8qY50Q9R";
 const customerKey = generateRandomString();
 
 export function BrandpayCheckoutPage() {
@@ -42,14 +42,14 @@ export function BrandpayCheckoutPage() {
     await brandpay.requestPayment({
       amount: {
         currency: "KRW",
-        value: 50000,
+        value: 100, // 상품 가격
       },
       orderId: generateRandomString(), // 고유 주문번호
-      orderName: "토스 티셔츠 외 2건",
+      orderName: "영화티켓", // 결제시 결제 품목
       successUrl: window.location.origin + `/brandpay/success?customerKey=${customerKey}&`, // 결제 요청이 성공하면 리다이렉트되는 URL
       failUrl: window.location.origin + "/fail", // 결제 요청이 실패하면 리다이렉트되는 URL
-      customerEmail: "customer123@gmail.com",
-      customerName: "김토스",
+      customerEmail: "customer123@gmail.com", // 주문자 이메일
+      customerName: "김토스", // 주문자 이름
     });
   }
 

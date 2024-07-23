@@ -6,12 +6,12 @@ import { useEffect, useState } from "react";
 // TODO: server.js 의 secretKey 또한 결제위젯 연동 키가 아닌 API 개별 연동 키의 시크릿 키로 변경해야 합니다.
 // TODO: 구매자의 고유 아이디를 불러와서 customerKey로 설정하세요. 이메일・전화번호와 같이 유추가 가능한 값은 안전하지 않습니다.
 // @docs https://docs.tosspayments.com/sdk/v2/js#토스페이먼츠-초기화
-const clientKey = "test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq";
+const clientKey = "test_ck_26DlbXAaV06qgGNqL1qK8qY50Q9R";
 const customerKey = generateRandomString();
 
 const amount = {
   currency: "KRW",
-  value: 50000,
+  value: 100, // 결제 금액
 };
 
 export function PaymentCheckoutPage() {
@@ -56,7 +56,7 @@ export function PaymentCheckoutPage() {
           method: "CARD", // 카드 및 간편결제
           amount,
           orderId: generateRandomString(), // 고유 주문번호
-          orderName: "토스 티셔츠 외 2건",
+          orderName: "영화 티켓",
           successUrl: window.location.origin + "/payment/success", // 결제 요청이 성공하면 리다이렉트되는 URL
           failUrl: window.location.origin + "/fail", // 결제 요청이 실패하면 리다이렉트되는 URL
           customerEmail: "customer123@gmail.com",
@@ -106,7 +106,7 @@ export function PaymentCheckoutPage() {
             validHours: 24,
           },
         });
-      case "MOBILE_PHONE":
+      /*case "MOBILE_PHONE":
         await payment.requestPayment({
           method: "MOBILE_PHONE", // 휴대폰 결제
           amount,
@@ -148,7 +148,7 @@ export function PaymentCheckoutPage() {
             provider: "PAYPAL", // PayPal 결제
             country: "KR",
           },
-        });
+        });*/
     }
   }
 
@@ -176,7 +176,7 @@ export function PaymentCheckoutPage() {
           <button id="VIRTUAL_ACCOUNT" className={`button2 ${selectedPaymentMethod === "VIRTUAL_ACCOUNT" ? "active" : ""}`} onClick={() => selectPaymentMethod("VIRTUAL_ACCOUNT")}>
             가상계좌
           </button>
-          <button id="MOBILE_PHONE" className={`button2 ${selectedPaymentMethod === "MOBILE_PHONE" ? "active" : ""}`} onClick={() => selectPaymentMethod("MOBILE_PHONE")}>
+          {/*<button id="MOBILE_PHONE" className={`button2 ${selectedPaymentMethod === "MOBILE_PHONE" ? "active" : ""}`} onClick={() => selectPaymentMethod("MOBILE_PHONE")}>
             휴대폰
           </button>
           <button
@@ -188,7 +188,7 @@ export function PaymentCheckoutPage() {
           </button>
           <button id="FOREIGN_EASY_PAY" className={`button2 ${selectedPaymentMethod === "FOREIGN_EASY_PAY" ? "active" : ""}`} onClick={() => selectPaymentMethod("FOREIGN_EASY_PAY")}>
             해외간편결제
-          </button>
+          </button>*/}
         </div>
         <button className="button" onClick={() => requestPayment()}>
           결제하기
